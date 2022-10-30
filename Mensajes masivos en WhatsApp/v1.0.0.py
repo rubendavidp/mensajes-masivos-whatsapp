@@ -31,7 +31,7 @@ message_text = 'Este es un mensaje de prueba'
 no_of_message = 1
 # Número de veces que deseas que se envíe el mensaje.
 
-moblie_no_list = [13025143149]
+moblie_no_list = [573013138900]
 # la lista de números de teléfono puede ser de cualquier tamaño
 
 def element_presence(by, xpath, time):
@@ -58,7 +58,7 @@ def is_connected():
     except BaseException:
         is_connected()
 
-driver = webdriver.Chrome(executable_path="chromedriver.exe")
+driver = webdriver.Firefox(executable_path="geckodriver.exe")
 driver.get("http://web.whatsapp.com")
 sleep(10)
 # tiempo de espera para escanear el código en segundos
@@ -85,15 +85,14 @@ def send_whatsapp_msg(phone_no, text):
     try:
         element_presence(
             By.XPATH,
-            '//*[@id="main"]/footer/div[1]/div[2]/div/div[2]',
+            '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]',
             30)
         txt_box = driver.find_element(
-            By.XPATH, '//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')
+            By.XPATH, '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]')
         global no_of_message
         for x in range(no_of_message):
-
             txt_box.send_keys(text)
-            txt_box.send_keys("\n")
+            txt_box.send_keys(Keys.ENTER)
 
     except Exception as e:
         print("invailid phone no :" + str(phone_no))
